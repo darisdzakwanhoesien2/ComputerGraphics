@@ -17,3 +17,5 @@ singledispatch==3.4.0.3
 six==1.11.0
 wrapt==1.10.11
 numpy==1.17
+
+/Users/darisdzakwanhoesien/Documents/Birru Central Code/New Final Code/nlp_pear_database/2025Code_backup/developing/oulu_courses/computer_graphics_github/ComputerGraphics/CG_Programming_Assignment_0/PyOpenGL_accelerate-3.1.5-cp37-cp37m-win_amd64.whl
