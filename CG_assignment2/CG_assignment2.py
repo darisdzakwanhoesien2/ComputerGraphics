@@ -265,6 +265,41 @@ class Win(GlutWindow):
 		4. fill here your code to complete the init_context_load function to
 		load an external object instead of drawing one with raw triangle.
 		'''
+                self.shader_program = self.init_shaders()
+
+                self.context.mvp_location = glGetUniformLocation(self.shader_program, "mvp")
+                self.context.texture_location = glGetUniformLocation(self.shader_program, "texture_sampler")
+
+                # Load texture
+                texture = TextureLoader("resources/uvtemplate.png")
+                self.context.textureGLID = texture.textureGLID
+
+                # --- ✅ Load external object using ObjLoader ---
+                obj = ObjLoader("resources/cube.obj")
+                obj.load_model()  # This should populate obj.vertices and obj.uvs
+
+                # Create buffer for vertex positions
+                self.context.vertexbuffer = glGenBuffers(1)
+                glBindBuffer(GL_ARRAY_BUFFER, self.context.vertexbuffer)
+                glBufferData(
+                        GL_ARRAY_BUFFER,
+                        len(obj.vertices) * 4,
+                        (GLfloat * len(obj.vertices))(*obj.vertices),
+                        GL_STATIC_DRAW
+                )
+
+                # Create buffer for texture UVs
+                self.context.uvbuffer = glGenBuffers(1)
+                glBindBuffer(GL_ARRAY_BUFFER, self.context.uvbuffer)
+                glBufferData(
+                        GL_ARRAY_BUFFER,
+                        len(obj.uvs) * 4,
+                        (GLfloat * len(obj.uvs))(*obj.uvs),
+                        GL_STATIC_DRAW
+                )
+
+                # Save how many vertices to draw
+                self.context.vertex_count = int(len(obj.vertices) / 3)
 
                 
 
@@ -302,9 +337,13 @@ class Win(GlutWindow):
                 '''
 		3. fill here your code to to enable and bind the texture buffer.
 		'''
+                glEnableVertexAttribArray(1)
+                glBindBuffer(GL_ARRAY_BUFFER, self.context.uvbuffer)
+                glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, None)
 
-                
-                glDrawArrays(GL_TRIANGLES, 0, int(len(vertex_buffer_data) / 3))
+                # Draw the object: glDrawArrays(GL_TRIANGLES, 0, int(len(vertex_buffer_data) / 3))
+                vertex_count = getattr(self.context, 'vertex_count', int(len(vertex_buffer_data) / 3))
+                glDrawArrays(GL_TRIANGLES, 0, vertex_count)
 
                 glDisableVertexAttribArray(0)
                 glDisableVertexAttribArray(1)
