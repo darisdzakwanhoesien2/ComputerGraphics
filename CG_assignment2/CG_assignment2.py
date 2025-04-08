@@ -49,62 +49,60 @@ vertex_buffer_data = [
                  1.0,-1.0, 1.0, #v2
                  1.0, 1.0, 1.0, #v3
                 #draw the triangle 2 of front side, v3, v4, v1
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
+                1.0,  1.0,  1.0,  # v3
+                -1.0,  1.0,  1.0,  # v4
+                -1.0, -1.0,  1.0,  # v1
                 
                 #Right side
                 #draw the triangle 3 of right side, v2, v6, v7
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
+                1.0, -1.0,  1.0,  # v2
+                1.0, -1.0, -1.0,  # v6
+                1.0,  1.0, -1.0,  # v7
                 #draw the triangle 4 of right side, v7, v3, v2
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
-                
+                1.0,  1.0, -1.0,  # v7
+                1.0,  1.0,  1.0,  # v3
+                1.0, -1.0,  1.0,  # v2
+
                 #Bottom side
                 #draw the triangle 5 of bottom side, v1, v6, v2
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
-
+                -1.0, -1.0,  1.0,  # v1
+                1.0, -1.0, -1.0,  # v6
+                1.0, -1.0,  1.0,  # v2
                 #draw the triangle 6 of bottom side, v6, v1, v5
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
-
+                1.0, -1.0, -1.0,  # v6
+                -1.0, -1.0,  1.0,  # v1
+                -1.0, -1.0, -1.0,  # v5
                 
                 #Top side
                 #draw the triangle 7 of top side, v4, v3, v7
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
+                -1.0,  1.0,  1.0,  # v4
+                1.0,  1.0,  1.0,  # v3
+                1.0,  1.0, -1.0,  # v7
                 #draw the triangle 8 of top side, v7, v8, v4
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
+                1.0,  1.0, -1.0,  # v7
+                -1.0,  1.0, -1.0,  # v8
+                -1.0,  1.0,  1.0,  # v4
                 
                 #Left side
                 #draw the triangle 9 of left side, v5, v1, v4
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
+                -1.0, -1.0, -1.0,  # v5
+                -1.0, -1.0,  1.0,  # v1
+                -1.0,  1.0,  1.0,  # v4
                 #draw the triangle 10 of left side, v4, v8, v5
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
+                -1.0,  1.0,  1.0,  # v4
+                -1.0,  1.0, -1.0,  # v8
+                -1.0, -1.0, -1.0,  # v5
                 
                 #Back side
                 #draw the triangle 11 of back side, v6, v5, v8
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
+                1.0, -1.0, -1.0,  # v6
+                -1.0, -1.0, -1.0,  # v5
+                -1.0,  1.0, -1.0,  # v8
 
                 #draw the triangle 12 of back side, v8, v7, v6
-                 0,0,0,
-		 0,0,0,
-		 0,0,0,
+                -1.0,  1.0, -1.0,  # v8
+                1.0,  1.0, -1.0,  # v7
+                1.0, -1.0, -1.0,  # v6
 ]        
 
 
