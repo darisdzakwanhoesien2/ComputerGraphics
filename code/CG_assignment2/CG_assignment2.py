@@ -252,6 +252,14 @@ class Win(GlutWindow):
 		3. fill here your code to define data buffer for storing the
 		cube's texture (uv).
 		'''
+                self.context.uvbuffer = glGenBuffers(1)
+                glBindBuffer(GL_ARRAY_BUFFER, self.context.uvbuffer)
+                glBufferData(
+                        GL_ARRAY_BUFFER,
+                        len(uv_buffer_data) * 4,
+                        (GLfloat * len(uv_buffer_data))(*uv_buffer_data),
+                        GL_STATIC_DRAW
+                )
                 
                 
         def init_context_load(self):

@@ -258,7 +258,7 @@ class Win(GlutWindow):
                         len(uv_buffer_data) * 4,
                         (GLfloat * len(uv_buffer_data))(*uv_buffer_data),
                         GL_STATIC_DRAW
-    )                
+                )                
                 
         def init_context_load(self):
                 '''
