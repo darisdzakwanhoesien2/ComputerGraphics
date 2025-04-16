@@ -130,66 +130,70 @@ vertex_buffer_data = [
 uv_buffer_data = [
                 
                 #Front side with texutre number 1
-                #map the texture to the triangle 1 of side, v1, v2, v3
-                0.0 / 3.0, 2.0 / 3.0, #v1
-		1.0 / 3.0, 2.0 / 3.0, #v2
-		1.0 / 3.0, 3.0 / 3.0, #v3
+                #map the texture to the triangle 1 of side, v1, v2, v3 (different from the initial templates)
+                0.0, 0.0,  # v1 maps to bottom-left of the texture
+                1.0, 0.0,  # v2 maps to bottom-right
+                1.0, 1.0,  # v3 maps to top-right
+
                 #map the texture to the triangle 2 of side, v3, v4, v1
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                1.0, 1.0,  # v3
+                0.0, 1.0,  # v4
+                0.0, 0.0,  # v1
                 
                 #Right side with texutre number 2
                 #map the texture to the triangle 1 of side, v2, v6, v7
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                0.0, 0.0,  # v2
+                1.0, 0.0,  # v6
+                1.0, 1.0,  # v7
+
                 #map the texture to the triangle 2 of side, v7, v3, v2
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                1.0, 1.0,  # v7
+                0.0, 1.0,  # v3
+                0.0, 0.0,  # v2
                 
                 #Bottom side with texutre number 3
                 #map the texture to the triangle 1 of side, v1, v6, v2
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                0.0, 0.0,  # v1
+                1.0, 0.0,  # v6
+                1.0, 1.0,  # v2
 
                 #map the texture to the triangle 2 of side, v6, v1, v5
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
-
+                1.0, 0.0,  # v6
+                0.0, 0.0,  # v1
+                0.0, 1.0,  # v5
                 
                 #Top side with texutre number 4
                 #map the texture to the triangle 1 of side, v4, v3, v7
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                0.0, 1.0,  # v4
+                1.0, 1.0,  # v3
+                1.0, 0.0,  # v7
+
                 #map the texture to the triangle 2 of side, v7, v8, v4
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                1.0, 0.0,  # v7
+                0.0, 0.0,  # v8
+                0.0, 1.0,  # v4
                 
                 #Let side with texutre number 5
                 #map the texture to the triangle 1 of side, v5, v1, v4
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                0.0, 0.0,  # v5
+                1.0, 0.0,  # v1
+                1.0, 1.0,  # v4
+
                 #map the texture to the triangle 2 of side, v4, v8, v5
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                1.0, 1.0,  # v4
+                0.0, 1.0,  # v8
+                0.0, 0.0,  # v5
                 
                 #Back side with texutre number 6
                 #map the texture to the triangle 1 of side, v6, v5, v8
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                0.0, 0.0,  # v6
+                1.0, 0.0,  # v5
+                1.0, 1.0,  # v8
+
                 #map the texture to the triangle 2 of side, v8, v7, v6
-                0.0, 0.0,
-		0.0, 0.0,
-		0.0, 0.0,
+                1.0, 1.0,  # v8
+                0.0, 1.0,  # v7
+                0.0, 0.0,  # v6
 ]
 
 def read_file(file_path: str) -> str:
