@@ -216,7 +216,7 @@ class Win(GlutWindow):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glUseProgram(self.shader_program)
         mvp_stack = []
-        
+
         # Sun
         mvp_stack.append(glm.mat4(1.0))
         self.model_matrix = mvp_stack[-1]
@@ -244,6 +244,17 @@ class Win(GlutWindow):
         glDrawElements(GL_TRIANGLES, len(ico_inds), GL_UNSIGNED_SHORT, None)
 
         # Moon
+        glBindTexture(GL_TEXTURE_2D, self.context.texture_moon.id)
+        mvp_stack[-1] = glm.scale(mvp_stack[-1], 0.5 * glm.vec3(1, 1, 1))
+        mvp_stack[-1] = glm.translate(mvp_stack[-1], glm.vec3(-5, 0, 0))
+        self.model_matrix = mvp_stack[-1]
+        self.calc_mvp()
+        glUniformMatrix4fv(self.context.mvp_location, 1, GL_FALSE, glm.value_ptr(self.context.mvp))
+        glUniformMatrix4fv(self.context.m_location, 1, GL_FALSE, glm.value_ptr(self.model_matrix))
+        glUniform3f(self.context.color_location, 0.5, 0.5, 0.5)
+        glUniform1f(self.context.light_bool_location, 1.0)
+        glDrawElements(GL_TRIANGLES, len(ico_inds), GL_UNSIGNED_SHORT, None)
+
 
         
         glUseProgram(0)
