@@ -182,7 +182,8 @@ class Win(GlutWindow):
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, Vertex.sizeof, None)
         
         glEnableVertexAttribArray(1)
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, Vertex.sizeof, ctypes.c_void_p(3 * 4))
+        # glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, Vertex.sizeof, ctypes.c_void_p(3 * 4))
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, Vertex.sizeof, ctypes.c_void_p(3 * 4))
         
         glEnableVertexAttribArray(2)
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, Vertex.sizeof, ctypes.c_void_p(3 * 4 + 2 * 4))
