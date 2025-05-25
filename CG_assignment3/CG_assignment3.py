@@ -57,7 +57,7 @@ icosahedron = [
            glm.normalize(glm.vec3(-0.42532500, -0.26286500, 0.0000000))),
 ]
 
-ico_inds = [0, 6, 1, 0, 11, 6, 1, 4, 0, 1, 8, 4, 1, 10, 8, 2, 5, 3, 2, 9, 5, 2, 11, 9, 3, 7, 2, 3, 10, 7, 4, 8, 5, 4, 9, 0, 5, 8, 3, 5, 9, 4, 6, 10, 1, 6, 11, 7, 7, 10, 6, 7, 10, 6, 7, 11, 2, 8, 10, 3, 9, 11, 0
+ico_inds = [0, 6, 1, 0, 11, 6, 1, 4, 0, 1, 8, 4, 1, 10, 8, 2, 5, 3, 2, 9, 5, 2, 11, 9, 3, 7, 2, 3, 10, 7, 4, 8, 5, 4, 9, 0, 5, 8, 3, 5, 9, 4, 6, 10, 1, 6, 11, 7, 7, 10, 6, 7, 11, 2, 8, 10, 3, 9, 11, 0
 ]
 
 # Generate a sphere by subdivide each faces of a icosahedron
@@ -156,7 +156,7 @@ class Win(GlutWindow):
         self.context.color_location = glGetUniformLocation(self.shader_program, "planetColor")
         self.context.light_bool_location = glGetUniformLocation(self.shader_program, "lightBool")
         self.context.texture_location = glGetUniformLocation(self.shader_program, "sampler")
-        self.light_position = glm.vec4(0, 0, 0, 1)
+        self.light_position = glm.vec4(0, 0, 0, 1)  # Light at Sun's position
         # Generate buffers for vertices and color data and buffer the data
         self.context.vertex_buffer = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, self.context.vertex_buffer)
@@ -215,51 +215,40 @@ class Win(GlutWindow):
         """
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glUseProgram(self.shader_program)
-        mvp_stack = []
 
         elapsed = time.time() - start_time
         angle = elapsed * 0.5
 
-        mvp_stack = [glm.mat4(1.0)]
-
-        # Sun (rotates in place)
+        # Sun (rotates in place, emissive light source)
         sun_model = glm.rotate(glm.mat4(1.0), angle, glm.vec3(0, 1, 0))
         self.model_matrix = sun_model
         self.calc_mvp()
         glBindTexture(GL_TEXTURE_2D, self.context.texture_sun.id)
-        self.set_uniforms((1, 1, 0), -1.0)
-
+        self.set_uniforms((1, 1, 0), -1.0)  # Emissive
         glDrawElements(GL_TRIANGLES, len(ico_inds), GL_UNSIGNED_SHORT, None)
 
-        # Earth (revolves and rotates)
+        # Earth (revolves around sun and rotates)
         earth_revolution = glm.rotate(glm.mat4(1.0), angle * 0.25, glm.vec3(0, 1, 0))
-        # earth_translation = glm.translate(glm.mat4(1.0), glm.vec3(-20, 0, 3))
         earth_translation = glm.translate(glm.mat4(1.0), glm.vec3(4, 0, 0))
         earth_rotation = glm.rotate(glm.mat4(1.0), angle * 5, glm.vec3(0, 1, 0))
-        earth_scale = glm.scale(glm.mat4(1.0), glm.vec3(0.5))  # 0.1 → 0.5
+        earth_scale = glm.scale(glm.mat4(1.0), glm.vec3(0.5))
         earth_model = earth_revolution * earth_translation * earth_rotation * earth_scale
-
         self.model_matrix = earth_model
         self.calc_mvp()
         glBindTexture(GL_TEXTURE_2D, self.context.texture_earth.id)
-        self.set_uniforms((0, 0, 1), 1.0)
-
+        self.set_uniforms((0, 0, 1), 1.0)  # Lit with blue tint
         glDrawElements(GL_TRIANGLES, len(ico_inds), GL_UNSIGNED_SHORT, None)
 
         # Moon (revolves around earth)
-        moon_revolution = glm.rotate(glm.mat4(1.0), angle * 15.0, glm.vec3(0, 1, 0)) # 2.5 → 15.0
-        # moon_translation = glm.translate(glm.mat4(1.0), glm.vec3(-5, 0, 0))
-        moon_translation = glm.translate(glm.mat4(1.0), glm.vec3(1, 0, 0))  # -5 → 1
+        moon_revolution = glm.rotate(glm.mat4(1.0), angle * 15.0, glm.vec3(0, 1, 0))
+        moon_translation = glm.translate(glm.mat4(1.0), glm.vec3(1, 0, 0))
         moon_rotation = glm.rotate(glm.mat4(1.0), angle * 10, glm.vec3(0, 1, 0))
-        # moon_scale = glm.scale(glm.mat4(1.0), glm.vec3(0.5))
-        moon_scale = glm.scale(glm.mat4(1.0), glm.vec3(0.2))  # 0.5 → 0.2
+        moon_scale = glm.scale(glm.mat4(1.0), glm.vec3(0.2))
         moon_model = earth_model * moon_revolution * moon_translation * moon_rotation * moon_scale
-
         self.model_matrix = moon_model
         self.calc_mvp()
         glBindTexture(GL_TEXTURE_2D, self.context.texture_moon.id)
-        self.set_uniforms((0.5, 0.5, 0.5), 1.0)
-
+        self.set_uniforms((0.5, 0.5, 0.5), 1.0)  # Lit with gray tint
         glDrawElements(GL_TRIANGLES, len(ico_inds), GL_UNSIGNED_SHORT, None)
         glUseProgram(0)
 
@@ -267,7 +256,7 @@ class Win(GlutWindow):
         glUniformMatrix4fv(self.context.mvp_location, 1, GL_FALSE, glm.value_ptr(self.context.mvp))
         glUniformMatrix4fv(self.context.m_location, 1, GL_FALSE, glm.value_ptr(self.model_matrix))
         glUniformMatrix4fv(self.context.v_location, 1, GL_FALSE, glm.value_ptr(self.controller.view_matrix))
-        light_view = self.controller.view_matrix * (self.model_matrix * self.light_position)
+        light_view = self.controller.view_matrix * self.light_position  # Fixed light position
         glUniform4fv(self.context.light_location, 1, glm.value_ptr(light_view))
         glUniform3f(self.context.color_location, *color)
         glUniform1f(self.context.light_bool_location, light_bool)
